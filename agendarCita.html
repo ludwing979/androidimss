@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="icon" type="image/png" href="img/logo.png" />
+    <link rel="stylesheet" href="css/estilo.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <script type="text/javascript" src="js/funciones.js"></script>
+    <script type="text/javascript">
+    //Validación de sesion
+      if (localStorage.noAfiliacion) {
+        getClinica();
+      }else {
+        window.location.assign("index.html")
+      }
+    </script>
+    <script src="https://use.fontawesome.com/7a8eeef8c9.js"></script>
+    <title>Agenda tu cita</title>
+  </head>
+  <body>
+    <header>
+      <p>IMSS <i class="fa fa-sign-out" onclick='cerrar()' aria-hidden="true"
+        style="position: absolute; margin-left: 85%; cursor:pointer; font-size: 1.5em; top: 16px;"></i></p>
+    </header>
+      <div class="nuevaCita">
+        <h1>Agendar cita</h1>
+        <form class="citaN" action="index.html" method="post">
+          <input type="date" onchange="getHorarios()" id="date" min="2017-12-01" max="2018-01-31"><br>
+          <select id='horarios' name=''>
+            <option value="">Seleciona Horario</option>
+          </select><br>
+          <select id="tipo" class="" name="">
+            <option value="">Tipo de cita</option>
+            <option value="Pediatria">Pediatría</option>
+            <option value="General">General</option>
+            <option value="Dentista">Dentista</option>
+          </select><br>
+          <button type="button" onclick="agendarCita()" name="button">Agendar</button>
+        </form>
+      </div>
+
+      <div id="misCitas">
+        <h1>Mis Citas</h1>
+      </div>
+  </body>
+  <script type="text/javascript">
+  //Obtener citas del usuario
+  var ajaxRequest1;
+
+  ajaxRequest1 = new XMLHttpRequest();
+  ajaxRequest1.onreadystatechange = function() {
+
+     if(ajaxRequest1.readyState == 4) {
+       var hola = JSON.parse(ajaxRequest1.responseText);
+
+       for (var i = 0; i < Object.keys(hola).length; i++) {
+
+         document.getElementById('misCitas').innerHTML += "<div class='infoCita'><h2>"+hola[i].tipoCita+"</h2><h3>Fecha: "+hola[i].fechaCita+"</h3><h3> Hora: "+hola[i].horaInicioCita+"</h3></div>";
+       }
+     }
+  }
+
+  var queryString = "?sent=getCitas&valores=" + localStorage.getItem("noAfiliacion");
+  //Ejemplo servidor externo: ajaxRequest.open("GET", "http://192.168.1.80/proyectoOlmos/api/servicio/api.php" + queryString, true);
+  ajaxRequest1.open("GET", "api/citas/api.php" + queryString, true);
+  ajaxRequest1.send(null);
+
+  function getHorarios(){
+    var ajaxRequest;
+
+    ajaxRequest = new XMLHttpRequest();
+    ajaxRequest.onreadystatechange = function() {
+       if(ajaxRequest.readyState == 4) {
+         var hola = JSON.parse(ajaxRequest.responseText);
+         
+         var a = Object.keys(hola).length;
+         for (var i = 0; i < Object.keys(hola).length; i++) {
+           if (hola[i]) {
+             //alert(hola[i]);
+             var opt = document.createElement("option");
+             opt.text = hola[i];
+             opt.value = hola[i];
+             var x =document.getElementById('horarios');
+             x.options.add(opt,1);
+           }else{
+             a++;
+           }
+         }
+         for (var i = Object.keys(hola).length; i < a; i++) {
+           var opt = document.createElement("option");
+           opt.text = hola[i];
+           opt.value = hola[i];
+           var x =document.getElementById('horarios');
+           x.options.add(opt,1);
+         }
+       }
+    }
+
+    var queryString = "?sent=horarios&valores=" + localStorage.getItem("idClinica") + ","+document.getElementById('date').value + ","+ localStorage.getItem("noCons");
+    //Ejemplo servidor externo: ajaxRequest.open("GET", "http://192.168.1.80/proyectoOlmos/api/servicio/api.php" + queryString, true);
+    //alert(queryString);
+    ajaxRequest.open("GET", "api/citas/api.php" + queryString, true);
+    ajaxRequest.send(null);
+  }
+  </script>
+</html>
