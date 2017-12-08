@@ -335,26 +335,26 @@ body{
 
   #imss{
     font-weight: bolder;
-    font-size: 3em;
+    font-size: 1.5em;
     color: white;
     background-color: rgb(0,115,98);
     height: 10%;
     box-sizing: border-box;
-    padding-top: 25px;
+    padding-top: 8px;
   }
 
   .ins{
     text-align: end;
     position: relative;
-    width: 80%;
-    left: 13%;
+    width: 70%;
+    left: 25%;
   }
 
   #logo{
     position: absolute;
-    width: 13%;
-    left: 7%;
-    margin-top: -19.3%;
+    width: 11%;
+    left: 5%;
+    margin-top: -21%;
     filter: brightness(100);
   }
 
