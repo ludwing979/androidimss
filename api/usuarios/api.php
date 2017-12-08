@@ -15,6 +15,18 @@ if(!empty($_GET['sent']) && !empty($_GET['valores']))
 		case 'reg':
 				$price = registrarUsuario($_GET['valores']);
 			break;
+		case 'busq':
+				$price = buscarUsuario($_GET['valores']);
+			break;
+		case 'get':
+				$price = getUsuario($_GET['valores']);
+			break;
+		case 'mod':
+				$price = modificarUsuario($_GET['valores']);
+			break;
+		case 'del':
+				$price = eliminarUsuario($_GET['valores']);
+			break;
 		default:
 			$price = "Jajaja";
 			break;

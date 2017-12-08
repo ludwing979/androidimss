@@ -26,12 +26,17 @@ function entrar(){
        if(ajaxRequest.readyState == 4) {
 
           var hola = JSON.parse(ajaxRequest.responseText);
-          if(hola.password == document.getElementById('pass').value){
-            alert("Bienvenido");
-            localStorage.setItem("noAfiliacion",hola.noAfiliacion);
-            window.location.assign("agendarCita.html");
+          console.log(hola);
+          if (Object.keys(hola).length == 0) {
+            alert("No estas Registrado, registrate para poder utilizar el servicio");
           }else{
-            alert("No. de afiliación y/o contraseña incorrectos");
+            if(hola[0].password == document.getElementById('pass').value){
+              alert("Bienvenido");
+              localStorage.setItem("noAfiliacion",hola[0].noAfiliacion);
+              window.location.assign("agendarCita.html");
+            }else{
+              alert("No. de afiliación y/o contraseña incorrectos");
+            }
           }
           //cordova create imss com.proyectoOlmos.imss imss --template https://github.com/JorgeMaya/ProyectoOlmos.git
        }
@@ -55,7 +60,6 @@ function cerrar(){
 function regresar(){
   window.location.assign("index.html");
 }
-
 
 function registrarServicio() {
   if (document.getElementById('regNoAf').value != "" &&

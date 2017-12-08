@@ -44,7 +44,7 @@ body{
 	}
 
 	#pantalla{
-		width: 60%;
+		width: 65%;
 		height: 63%;
 		position: absolute;
 		margin-left: 30%;
@@ -137,7 +137,7 @@ body{
 		outline: none;
 	}
 
-	#buscar{
+	#buscaUsuario, #buscaClinica{
 	    width: 200px;
 	    height: 40px;
 	    border: none;
@@ -153,11 +153,11 @@ body{
 	    color: rgb(0,64,64);
 	}
 
-	#buscar::placeholder { 
-		color: rgb(0,64,64); 
+	#buscaUsuario, #buscaClinica::placeholder {
+		color: rgb(0,64,64);
 	}
 
-	#buscar:focus{
+	#buscaUsuario, #buscaClinica:focus{
 	    -webkit-box-shadow: 0px 8px 8px -3px rgba(3,93,80,.9);
 	    -moz-box-shadow: 0px 8px 8px -3px rgba(3,93,80,.9);
 	    box-shadow: 0px 8px 8px -3px rgba(3,93,80,.9);
@@ -177,7 +177,8 @@ body{
 	}
 
 	#espacios{
-		margin-left: 25px;
+		margin-left: 15px;
+		margin-right: 15px;
 	}
 
 	#espacios> input, select{
@@ -211,7 +212,7 @@ body{
   		border-radius: 10px;
   		border: none;
   		background-color: rgb(0,115,98);
-  		color: white; 
+  		color: white;
   	}
 
   	#espacios> button:active{
@@ -219,4 +220,50 @@ body{
 		box-shadow: 0 2px #666;
   		transform: translateY(2px);
   	}
+
+  	#resultados table { 
+		border-collapse: collapse; 
+		text-align: left; 
+		width: 100%; 
+	} 
+	#resultados {
+		font: normal 12px/150% Arial, Helvetica, sans-serif; 
+		background: #fff; 
+		overflow: hidden; 
+		border: 2px solid #36752D; 
+		-webkit-border-radius: 14px; 
+		-moz-border-radius: 14px; 
+		border-radius: 14px; 
+	}
+		
+	#resultados table td, #resultados table th { 
+		padding: 6px 5px; 
+	}
+
+	#resultados table thead th {
+		background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #36752D), color-stop(1, #275420) );
+		background:-moz-linear-gradient( center top, #36752D 5%, #275420 100% );
+		filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#36752D', endColorstr='#275420');
+		background-color:#36752D; color:#FFFFFF; font-size: 15px; font-weight: bold; border-left: 3px solid #36752D; 
+	} 
+
+	#resultados table thead th:first-child { 
+		border: none; 
+	}
+
+	#resultados table tbody td { 
+		color: #275420; 
+		border-left: 2px solid #C6FFC2;
+		font-size: 12px;
+		border-bottom: 2px solid #C6FFC2;
+		font-weight: normal; 
+	}
+
+	#resultados table tbody td:first-child { 
+		border-left: none; 
+	}
+
+	#resultados table tbody tr:last-child td { 
+		border-bottom: none; 
+	}
 }

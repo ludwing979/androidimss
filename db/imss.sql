@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-12-2017 a las 20:37:09
+-- Tiempo de generación: 07-12-2017 a las 22:05:08
 -- Versión del servidor: 10.1.19-MariaDB
 -- Versión de PHP: 5.6.28
 
@@ -35,6 +35,14 @@ CREATE TABLE `citas` (
   `noAfiliacion` bigint(12) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
+--
+-- Volcado de datos para la tabla `citas`
+--
+
+INSERT INTO `citas` (`idCita`, `fechaCita`, `horaInicioCita`, `tipoCita`, `idClinica`, `noAfiliacion`) VALUES
+(1, '2017-12-08', '08:25:00', 'Pediatria', 2, 12345678901),
+(2, '2017-12-08', '09:15:00', 'General', 2, 12345678901);
+
 -- --------------------------------------------------------
 
 --
@@ -59,7 +67,9 @@ CREATE TABLE `clinicas` (
 --
 
 INSERT INTO `clinicas` (`idClinica`, `nombreClinica`, `estado`, `municipio`, `codPost`, `calle`, `numero`, `colonia`, `telefono`, `noConsutorios`) VALUES
-(1, 'Benito Juarez', 'Querétaro', 'Corregidora', 76925, 'Gardenias', 5, 'Bravo', '2121212', 1);
+(1, 'Benito Juarez', 'Querétaro', 'Qeretaro', 76000, 'Av. 5 de Febrero', 105, 'Col. Centro', '2101616', 1),
+(2, 'asd', 'Querétaro', 'Corregidora', 76924, 'df', 1, 'Santuarios Residencial', '124', 1),
+(3, 'as', 'Querétaro', 'Corregidora', 76910, 'Av. Paseo Constituyentes', 15, 'Pueblo Nuevo', '2101615', 1);
 
 -- --------------------------------------------------------
 
@@ -69,13 +79,26 @@ INSERT INTO `clinicas` (`idClinica`, `nombreClinica`, `estado`, `municipio`, `co
 
 CREATE TABLE `doctores` (
   `idDoctor` int(11) NOT NULL,
-  `nombreDoctor` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
-  `direccion` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
-  `telefono` int(11) NOT NULL,
+  `nombre` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
+  `apellidos` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
+  `estado` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
+  `municipio` varchar(60) COLLATE utf8_spanish_ci NOT NULL,
+  `codPost` int(6) NOT NULL,
+  `calle` varchar(40) COLLATE utf8_spanish_ci NOT NULL,
+  `numero` int(5) NOT NULL,
+  `colonia` varchar(60) COLLATE utf8_spanish_ci NOT NULL,
+  `telefono` bigint(11) NOT NULL,
   `email` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
-  `cedulaProfesional` int(10) DEFAULT NULL,
+  `cedulaProfesional` int(9) DEFAULT NULL,
   `idClinica` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `doctores`
+--
+
+INSERT INTO `doctores` (`idDoctor`, `nombre`, `apellidos`, `estado`, `municipio`, `codPost`, `calle`, `numero`, `colonia`, `telefono`, `email`, `cedulaProfesional`, `idClinica`) VALUES
+(1, 'Juan', 'Mendoza', 'Querétaro', 'Corregidora', 76925, 'Gardenias', 1, 'Bravo', 4422232425, 'juan@gmail.com', 12345678, 2);
 
 -- --------------------------------------------------------
 
@@ -87,8 +110,15 @@ CREATE TABLE `servicio` (
   `password` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
   `noAfiliacion` bigint(12) NOT NULL,
   `email` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
-  `celular` int(10) NOT NULL
+  `celular` bigint(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `servicio`
+--
+
+INSERT INTO `servicio` (`password`, `noAfiliacion`, `email`, `celular`) VALUES
+('1234', 12345678901, 'jorgitomaya1@gmail.com', 4421348001);
 
 -- --------------------------------------------------------
 
@@ -101,7 +131,7 @@ CREATE TABLE `usuarios` (
   `apellidos` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
   `noAfiliacion` bigint(12) NOT NULL,
   `email` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
-  `telefono` int(11) NOT NULL,
+  `telefono` bigint(11) NOT NULL,
   `estado` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
   `municipio` varchar(60) COLLATE utf8_spanish_ci NOT NULL,
   `codPost` int(6) NOT NULL,
@@ -111,6 +141,13 @@ CREATE TABLE `usuarios` (
   `tipoUsuario` tinyint(4) NOT NULL DEFAULT '0',
   `idClinica` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`nombre`, `apellidos`, `noAfiliacion`, `email`, `telefono`, `estado`, `municipio`, `codPost`, `calle`, `numero`, `colonia`, `tipoUsuario`, `idClinica`) VALUES
+('Jorge', 'Maya', 12345678901, 'jorgitomaya1@gmail.com', 4421348001, 'Querétaro', 'Corregidora', 76925, 'Azucenas', 1, 'Bravo', 0, 2);
 
 --
 -- Índices para tablas volcadas
@@ -159,17 +196,17 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `citas`
 --
 ALTER TABLE `citas`
-  MODIFY `idCita` int(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `idCita` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `clinicas`
 --
 ALTER TABLE `clinicas`
-  MODIFY `idClinica` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idClinica` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `doctores`
 --
 ALTER TABLE `doctores`
-  MODIFY `idDoctor` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idDoctor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- Restricciones para tablas volcadas
 --

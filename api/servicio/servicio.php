@@ -20,7 +20,7 @@ function logIn($valor)
     $email = $row['email'];
     $celular = $row['celular'];
 
-    $usuarios[] = array(  'password' => $password,
+    $usuarios[] = array('password' => $password,
                         'noAfiliacion' => $noAfiliacion,
                         'email' => $email,
                         'celular' => $celular);

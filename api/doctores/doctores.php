@@ -1,117 +1,53 @@
 <?php
   error_reporting(E_ALL & ~E_NOTICE);
-  require("conexion.php");
+  require("../conexion.php");
 
-$conexion = conectar();
+  function registrarDoctor($valores){
+    $conexion = conectar();
+    $val = explode(',',$valores);
+    $return = "";
 
-public function selectClinicas($valor)
-{
-  $sql = "SELECT * FROM clinicas WHERE idClinica||noClinica LIKE '%".$valor."%';";
+    $sql ="INSERT INTO doctores (nombre, apellidos, email, telefono, estado, municipio, codPost, calle, numero, colonia, cedulaProfesional, idClinica) VALUES ('{$val[0]}', '{$val[1]}', '{$val[2]}', {$val[3]}, '{$val[4]}', '{$val[5]}', {$val[6]}, '{$val[7]}', {$val[8]}, '{$val[9]}', {$val[10]}, {$val[11]});";
 
-  if(!$result = mysqli_query($conexion, $sql)) die();
-
-  $clinicas = array();
-
-  while($row = mysqli_fetch_array($result))  {
-    /*Crear Arreglo*/
-
+    if ($conexion->query($sql)) {
+        $return = "Exito xD";
+    }else{
+      $return = "Fracaso :C";
+    }
+    return $return;
   }
 
-  $close = mysqli_close($conexion) or die("Ha sucedido un error inexperado en la desconexion de la base de datos");
+  function buscarDoctor($valores)
+  {
+    $conexion = conectar();
+    $sql ="SELECT cedulaProfesional, nombre, apellidos, calle, numero, colonia, municipio, telefono, email FROM doctores WHERE cedulaProfesional LIKE '%{$valores}%' ||nombre like '%{$valores}%' ||apellidos like '%{$valores}%' ||email like '%{$valores}%' ||telefono like '%{$valores}%';";
 
-  $json_clinicas = json_encode($clinicas);
-  return $json_clinicas;
-  break;
+    if(!$result = mysqli_query($conexion, $sql)) die();
+    while($row = mysqli_fetch_array($result))  {
+      $cedulaProfesional = $row['cedulaProfesional'];
+      $nombre = $row['nombre'];
+      $apellidos = $row['apellidos'];
+      $calle = $row['calle'];
+      $numero = $row['numero'];
+      $colonia = $row['colonia'];
+      $municipio = $row['municipio'];
+      $telefono = $row['telefono'];
+      $email = $row['email'];
 
-}
+      $doctores[] = array('cedulaProfesional' => $cedulaProfesional,
+                          'nombre' => $nombre,
+                          'apellidos' => $apellidos,
+                          'calle' => $calle,
+                          'numero' => $numero,
+                          'colonia' => $colonia,
+                          'municipio' => $municipio,
+                          'telefono' => $telefono,
+                          'email' => $email);
+    }
+    $close = mysqli_close($conexion) or die("Ha sucedido un error inexperado en la desconexion de la base de datos");
 
-public function selectDoctores($valor)
-{
-  $sql = "SELECT * FROM doctores WHERE idDoctor||nombre LIKE '%".$valor."%';";
-
-  if(!$result = mysqli_query($conexion, $sql)) die();
-
-  $doctores = array();
-
-  while($row = mysqli_fetch_array($result))  {
-    /*Crear Arreglo*/
-
+    $json_doctores = json_encode($doctores);
+    return $json_doctores;
+    break;
   }
-
-  $close = mysqli_close($conexion) or die("Ha sucedido un error inexperado en la desconexion de la base de datos");
-
-  $json_doctores = json_encode($doctores);
-  return $json_doctores;
-  break;
-
-}
-
-public function selectConsultorios($valor)
-{
-  $sql = "SELECT * FROM consultorios WHERE idConsultorio||noConsultorio LIKE '%".$valor."%';";
-
-  if(!$result = mysqli_query($conexion, $sql)) die();
-
-  $consultorios = array();
-
-  while($row = mysqli_fetch_array($result))  {
-    /*Crear Arreglo*/
-
-  }
-
-  $close = mysqli_close($conexion) or die("Ha sucedido un error inexperado en la desconexion de la base de datos");
-
-  $json_consultorios = json_encode($consultorios);
-  return $json_consultorios;
-  break;
-
-}
-
-public function selectDerechohabientes($valor)
-{
-  $sql = "SELECT * FROM derechohabientes WHERE noAfiliacion||nombre LIKE '%".$valor."%';";
-
-  if(!$result = mysqli_query($conexion, $sql)) die();
-
-  $derechohabientes = array();
-
-  while($row = mysqli_fetch_array($result))  {
-    /*Crear Arreglo*/
-
-  }
-
-  $close = mysqli_close($conexion) or die("Ha sucedido un error inexperado en la desconexion de la base de datos");
-
-  $json_derechohabientes = json_encode($derechohabientes);
-  return $json_derechohabientes;
-  break;
-
-}
-
-public function selectCitas($valor)
-{
-  $sql = "SELECT * FROM citas WHERE idClinica = '%".$valor."%';";
-
-  if(!$result = mysqli_query($conexion, $sql)) die();
-
-  $citas = array();
-
-  while($row = mysqli_fetch_array($result))  {
-    /*Crear Arreglo*/
-
-  }
-
-  $close = mysqli_close($conexion) or die("Ha sucedido un error inexperado en la desconexion de la base de datos");
-
-  $json_citas = json_encode($citas);
-  return $json_citas;
-  break;
-
-}
-
-public function setClinica($valores)
-{
-  $sql ="INSERT INTO clinicas () VALUES ();";
-}
-
 ?>

@@ -17,11 +17,14 @@ if(!empty($_GET['sent']) && !empty($_GET['valores']))
 		case 'obt':
 			$price = obtenerClinicaUsuario($_GET['valores']);
 			break;
+		case 'busq':
+			$price = buscarClinica($_GET['valores']);
+			break;
 		default:
 			# code...
 			break;
 	}
 	echo $price;
 }else{
-	echo "Hola";
+	echo "Hola: ".$_GET['sent'].", ".$_GET['valores'];
 }
