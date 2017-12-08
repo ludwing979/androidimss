@@ -1,6 +1,10 @@
 //Clave: AIzaSyBxNy4v5wknK4qgnwZOvulBtnAS_WRLP1Y
 //Ejemplo: https://maps.googleapis.com/maps/api/distancematrix/json?origins=&destinations=&language=es-ES&units=metric&key=AIzaSyBxNy4v5wknK4qgnwZOvulBtnAS_WRLP1Y
 
+if(window.MobileAccessibility){
+  window.MobileAccessibility.usePreferredTextZoom(false);
+}
+
 function registro() {
   document.getElementById("titulo").innerHTML = "<p>Registro</p>";
   document.getElementById('form').style.height = '350px';
