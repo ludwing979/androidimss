@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta name="viewport" content="width=device-width, height=device-height, user-scalable=0, initial-scale=1.0, target-densitydpi=medium-dpi, maximum-scale=1.0, minimum-scale=1.0">
     <meta charset="utf-8">
     <link rel="icon" type="image/png" href="img/logo.png" />
     <link rel="stylesheet" href="css/estilo.css">
@@ -8,19 +9,18 @@
     <script type="text/javascript" src="js/funciones.js"></script>
     <script type="text/javascript">
     //Validación de sesion
-      if (localStorage.noAfiliacion) {
+      /*if (localStorage.noAfiliacion) {
         getClinica();
       }else {
         window.location.assign("index.html")
-      }
+      }*/
     </script>
     <script src="https://use.fontawesome.com/7a8eeef8c9.js"></script>
     <title>Agenda tu cita</title>
   </head>
   <body>
     <header>
-      <p>IMSS <i class="fa fa-sign-out" onclick='cerrar()' aria-hidden="true"
-        style="position: absolute; margin-left: 85%; cursor:pointer; font-size: 1.5em; top: 16px;"></i></p>
+      <p>IMSS <i id="salir" class="fa fa-sign-out" onclick='cerrar()' aria-hidden="true"></i></p>
     </header>
       <div class="nuevaCita">
         <h1>Agendar cita</h1>
